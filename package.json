@@ -17,6 +17,7 @@
     "sqlz:model:new": "./node_modules/.bin/sequelize model:generate"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bluebird": "3.5.1",
     "body-parser": "1.18.2",

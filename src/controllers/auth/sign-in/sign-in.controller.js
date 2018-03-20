@@ -3,27 +3,40 @@ import * as tokenDao from "../../../dao/access-token.dao";
 import { validationResult } from "express-validator/check";
 import { generateToken } from "../../../utils/jwt.util";
 
-export function signInUser(req, res) {
+export async function signInUser(req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ errors: errors.mapped() });
   }
 
-  userDao.signinUser(req.body).then(user => {
-    if (!user) {
-      return res.status(400).json({
-        error: "User not found"
-      });
-    }
-    const newModel = { userId: user.id, email: user.email };
-    generateToken(newModel).then(token => {
-      tokenDao.saveToken(Object.assign({}, newModel, { accessToken: token }))
-        .then(() => {
-          res.json(token);
-        });
-      
-    });
+  const user = await userDao.signinUser(req.body).catch(err => {
+    console.log(err.message);
+    
   });
+
+  if (!user) {
+    return res.status(400).json({
+      error: "User not found"
+    });
+  }
+  const newModel = { userId: user.id, email: user.email };
+  const token = await generateToken(newModel).catch(() => {
+    console.log("Token couldn't be generated");
+  });
+
+  if (!token) {
+    return res.status(400).json({
+      error: "Error while generating token"
+    });
+  }
+
+  await tokenDao
+    .saveToken(Object.assign({}, newModel, { accessToken: token }))
+    .catch(() => {
+      return res.json({ err: "some error occurred" });
+    });
+  
+  return res.json(token);
 }
 
 export function checkValidity(req, res, next) {}
