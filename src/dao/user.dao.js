@@ -7,7 +7,7 @@ export function createUser(model) {
     const author = db.user.build(model);
     return author.save();
   } catch (ex) {
-    // console.log("Error occurred while saving authors");
+    console.log("Error occurred while creating user");
   }
 }
 

@@ -1,7 +1,7 @@
 import * as userDao from "../../../dao/user.dao";
 import * as tokenDao from "../../../dao/access-token.dao";
 import { validationResult } from "express-validator/check";
-import { generateToken, validateToken } from "../../../utils/jwt.util";
+import { generateToken } from "../../../utils/jwt.util";
 
 export function signInUser(req, res) {
   const errors = validationResult(req);

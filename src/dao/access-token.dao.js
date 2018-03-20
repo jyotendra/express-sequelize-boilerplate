@@ -1,17 +1,17 @@
 import db from "../db/models/index.model";
-  import * as Bluebird from "bluebird";
-  import { Op } from "sequelize";
-  
-  export function saveToken(
-    model) {
-    try {
-      return db.AccessToken.findAll({
-        where: {
-          userId: {
-            [Op.eq]: model.userId
-          }
+import Promise from "bluebird";
+import { Op } from "sequelize";
+
+export function saveToken(model) {
+  try {
+    return db.AccessToken.findAll({
+      where: {
+        userId: {
+          [Op.eq]: model.userId
         }
-      }).then(foundToken => {
+      }
+    })
+      .then(foundToken => {
         if (foundToken) {
           return db.AccessToken.destroy({
             where: {
@@ -19,18 +19,16 @@ import db from "../db/models/index.model";
                 [Op.eq]: model.userId
               }
             }
-          })
+          });
         } else {
-            return Bluebird.resolve(0);
+          return Promise.resolve(0);
         }
-      }).then(() => {
-          const token = db.AccessToken.build(model);
-          return token.save();
       })
-  
-    } catch (ex) {
-      console.log(ex);
-      console.log("Error occurred while saving Access Token");
-    }
+      .then(() => {
+        const token = db.AccessToken.build(model);
+        return token.save();
+      });
+  } catch (ex) {
+    console.log("Error occurred while saving Access Token");
   }
-
+}
