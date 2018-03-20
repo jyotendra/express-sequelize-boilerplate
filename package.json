@@ -31,7 +31,8 @@
     "pg-hstore": "~2.3.2",
     "reflect-metadata": "0.1.12",
     "sequelize": "4.33.4",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "winston": "^2.4.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^1.0.0",

@@ -4,10 +4,9 @@ import Promise from "bluebird";
 
 export function createUser(model) {
   try {
-    const author = db.user.build(model);
-    return author.save();
+    const user = db.user.build(model);
+    return user.save();
   } catch (ex) {
-    console.log("Error occurred while creating user");
   }
 }
 
@@ -21,9 +20,10 @@ export function signinUser(model) {
           if (val) {
             resolve(user);
           } else {
-            reject(null);
+            console.log("Error came");
+            reject(new Error(`User was not found with email: ${model.email}`));
           }
-        });
+        }).catch(err => console.log(err))
       });
     }
   });
