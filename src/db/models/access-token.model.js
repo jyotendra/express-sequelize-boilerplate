@@ -1,7 +1,9 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const AccessToken = sequelize.define('AccessToken', {
-    id: {
+  const accessToken = sequelize.define(
+    "accessToken",
+    {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -12,18 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
 
-      userId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "User",
-          key: "id"
-        },
-        onUpdate: "cascade",
-        onDelete: "cascade"
-      },
-
       deviceId: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
       },
 
       isActive: {
@@ -39,13 +31,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false
       }
-  }, {
-    freezeTableName: true
-  });
-  AccessToken.associate = function(models) {
-    AccessToken.belongsTo(models.User, {
-        foreignKey: "userId"
-    })
+    },
+    {
+      freezeTableName: true
+    }
+  );
+  accessToken.associate = function(models) {
+    accessToken.belongsTo(models.user);
   };
-  return AccessToken;
+  return accessToken;
 };

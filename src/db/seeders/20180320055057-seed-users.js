@@ -23,7 +23,7 @@ module.exports = {
         updatedAt: date.toUTCString()
       });
     });
-    return queryInterface.bulkInsert("User", allUsers);
+    return queryInterface.bulkInsert("user", allUsers);
   },
 
   down: (queryInterface, Sequelize) => {

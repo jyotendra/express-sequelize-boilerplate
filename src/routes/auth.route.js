@@ -7,6 +7,6 @@ import { signInUser } from "../controllers/auth/sign-in.controller";
 const router = Router();
 
 router.post("/sign-in", signinValidator, signInUser);
-// router.post("/sign-up", createNewUser);
+// router.post("/sign-up", createNewuser);
 
 export default router;

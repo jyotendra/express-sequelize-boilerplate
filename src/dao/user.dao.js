@@ -13,7 +13,9 @@ export function createUser(model) {
 }
 
 export async function signinUser(model) {
-  const user = await db.User.findOne({ where: { email: model.email } }).catch(
+  const user = await db.user.findOne({ where: { email: model.email }, include: [{
+    model: db.accessToken
+  }] }).catch(
     err => logger.error(userError.UNABLE_TO_FIND_USER(model.email), err)
   );
   if (!user) {

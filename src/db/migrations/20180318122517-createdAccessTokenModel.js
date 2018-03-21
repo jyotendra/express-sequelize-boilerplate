@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("AccessToken",{
+    return queryInterface.createTable("accessToken",{
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -17,7 +17,7 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model: "User",
+          model: "user",
           key: "id"
         },
         onUpdate: "cascade",

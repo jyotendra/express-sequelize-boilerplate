@@ -5,7 +5,7 @@ import { logger } from "../server";
 import { accessTokenErrors } from "../consts/templates/dao/dao-error.template";
 
 export async function saveToken(model) {
-  const foundToken = await db.AccessToken.findAll({
+  const foundToken = await db.accessToken.findAll({
     where: {
       userId: {
         [Op.eq]: model.userId
@@ -16,7 +16,7 @@ export async function saveToken(model) {
   });
 
   if (foundToken) {
-    await db.AccessToken.destroy({
+    await db.accessToken.destroy({
       where: {
         userId: {
           [Op.eq]: model.userId
@@ -29,6 +29,6 @@ export async function saveToken(model) {
     throw new Error("Can't find token");
   }
 
-  const token = await db.AccessToken.build(model);
+  const token = await db.accessToken.build(model);
   return token.save();
 }

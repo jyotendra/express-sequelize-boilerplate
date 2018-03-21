@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const user = sequelize.define('user', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
-  User.associate = function() {
-    // associations can be defined here
+  user.associate = function(models) {
+    user.hasOne(models.accessToken)
   };
-  return User;
+  return user;
 };
