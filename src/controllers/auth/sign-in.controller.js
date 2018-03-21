@@ -1,8 +1,9 @@
 import * as userDao from "../../dao/user.dao";
 import * as tokenDao from "../../dao/access-token.dao";
-import winston from "../../utils/logger.utils";
 import { validationResult } from "express-validator/check";
 import { generateToken } from "../../utils/jwt.util";
+import { authError } from "../../consts/templates/controller/auth-errors.template";
+import { logger } from "../../server";
 
 export async function signInUser(req, res) {
   const errors = validationResult(req);
@@ -11,7 +12,7 @@ export async function signInUser(req, res) {
   }
 
   const user = await userDao.signinUser(req.body).catch(err => {
-    console.log(err.message);
+    logger.log(err.message);
   });
 
   if (!user) {
@@ -20,8 +21,8 @@ export async function signInUser(req, res) {
     });
   }
   const newModel = { userId: user.id, email: user.email };
-  const token = await generateToken(newModel).catch(() => {
-    console.log("Token couldn't be generated");
+  const token = await generateToken(newModel).catch(err => {
+    logger.error(authError.UNABLE_TO_GENERATE_TOKEN, err);
   });
 
   if (!token) {
@@ -33,9 +34,9 @@ export async function signInUser(req, res) {
   await tokenDao
     .saveToken(Object.assign({}, newModel, { accessToken: token }))
     .catch(() => {
+      logger.error(authError.UNABLE_TO_SAVE_TOKEN_IN_SYSTEM);
       return res.json({ err: "some error occurred" });
     });
-  winston.info(`Thats the token - ${token}`);
   return res.json(token);
 }
 
