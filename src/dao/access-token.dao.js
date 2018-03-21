@@ -1,5 +1,4 @@
 import db from "../db/models/index.model";
-import Promise from "bluebird";
 import { Op } from "sequelize";
 
 export async function saveToken(model) {

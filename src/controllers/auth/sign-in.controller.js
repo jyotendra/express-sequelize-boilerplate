@@ -1,7 +1,8 @@
-import * as userDao from "../../../dao/user.dao";
-import * as tokenDao from "../../../dao/access-token.dao";
+import * as userDao from "../../dao/user.dao";
+import * as tokenDao from "../../dao/access-token.dao";
+import winston from "../../utils/logger.utils";
 import { validationResult } from "express-validator/check";
-import { generateToken } from "../../../utils/jwt.util";
+import { generateToken } from "../../utils/jwt.util";
 
 export async function signInUser(req, res) {
   const errors = validationResult(req);
@@ -11,7 +12,6 @@ export async function signInUser(req, res) {
 
   const user = await userDao.signinUser(req.body).catch(err => {
     console.log(err.message);
-    
   });
 
   if (!user) {
@@ -35,7 +35,7 @@ export async function signInUser(req, res) {
     .catch(() => {
       return res.json({ err: "some error occurred" });
     });
-  
+  winston.info(`Thats the token - ${token}`);
   return res.json(token);
 }
 
