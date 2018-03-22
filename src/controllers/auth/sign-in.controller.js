@@ -1,43 +1,60 @@
-import * as userDao from "../../dao/user.dao";
-import * as tokenDao from "../../dao/access-token.dao";
+import { signinUser as signIn } from "../../dao/user/sign-in-user.dao";
+import { saveToken } from "../../dao/access-token/save-token.dao";
 import { validationResult } from "express-validator/check";
 import { generateToken } from "../../utils/jwt.util";
-import { authError } from "../../consts/templates/controller/auth-errors.template";
 import { logger } from "../../server";
+import { rConditioner } from "../../utils/conditioner.util";
 
 export async function signInUser(req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.mapped() });
+    return rConditioner(
+      res,
+      null,
+      402,
+      "failed",
+      "Validation failed",
+      errors.mapped()
+    );
   }
 
-  const user = await userDao.signinUser(req.body).catch(err => {
+  const user = await signIn(req.body).catch(err => {
     logger.log(err.message);
   });
 
   if (!user) {
-    return res.status(400).json({
-      error: "User not found"
-    });
+    return rConditioner(
+      res,
+      null,
+      400,
+      "failed",
+      "Either email or password is incorrect",
+      "User not found"
+    );
   }
   const newModel = { userId: user.id, email: user.email };
   const token = await generateToken(newModel).catch(err => {
-    logger.error(authError.UNABLE_TO_GENERATE_TOKEN, err);
+    logger.error(err);
   });
 
   if (!token) {
-    return res.status(400).json({
-      error: "Error while generating token"
-    });
+    return rConditioner(
+      res,
+      null,
+      500,
+      "failed",
+      "Unable to create token",
+      "Error occurred while generating token"
+    );
   }
 
-  await tokenDao
-    .saveToken(Object.assign({}, newModel, { accessToken: token }))
-    .catch(() => {
-      logger.error(authError.UNABLE_TO_SAVE_TOKEN_IN_SYSTEM);
+  await saveToken(Object.assign({}, newModel, { accessToken: token })).catch(
+    () => {
+      logger.error("unable to save token");
       return res.json({ err: "some error occurred" });
-    });
-  return res.json(token);
+    }
+  );
+  return rConditioner(res, {"access-token": token}, 200, "ok", "sign in successfully", null);
 }
 
 export function checkValidity(req, res, next) {}

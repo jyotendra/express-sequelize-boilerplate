@@ -5,8 +5,6 @@ import * as bodyParser from "body-parser";
 import routes from "./routes/index.route";
 import Logger from "./utils/logger.utils";
 
-// console.log(config);
-
 const port = 3000;
 
 const app = Express();

@@ -28,6 +28,7 @@
     "inversify": "4.10.0",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
+    "objectmodel": "^3.3.0",
     "pg": "7.4.1",
     "pg-hstore": "~2.3.2",
     "reflect-metadata": "0.1.12",

@@ -27,7 +27,6 @@ fs
 
 Object.keys(db).forEach(function(modelName) {
   if (db[modelName].associate) {
-    console.log("file to associate", modelName);
     db[modelName].associate(db);
   }
 });

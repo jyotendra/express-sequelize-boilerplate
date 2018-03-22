@@ -1,8 +1,8 @@
-import db from "../db/models/index.model";
+import db from "../../db/models/index.model";
 import { Op } from "sequelize";
-import { logger } from "../server";
+import { logger } from "../../server";
 
-import { accessTokenErrors } from "../consts/templates/dao/dao-error.template";
+import { accessTokenErrors } from "./access-token.template";
 
 export async function saveToken(model) {
   const foundToken = await db.accessToken.findAll({
