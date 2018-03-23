@@ -5,16 +5,27 @@ import * as bodyParser from "body-parser";
 import routes from "./routes/index.route";
 import Logger from "./utils/logger.utils";
 
+const path = require("path");
+const cors = require("cors");
+
 const port = 3000;
 
 const app = Express();
 export const logger = Logger;
 
 // (() => db.sync({ force: false }))();
-
+app.use(cors())
 app.use(bodyParser.json());
+app.use(Express.static(path.join(__dirname, "public")));
+
+/**
+ * Angular app serve route
+ */
+app.get("/ng/*", (req, res) => {
+  return res.sendFile(path.join(__dirname, "public", "ng", "index.html"));
+});
+
 app.use("/", routes);
-app.use(Express.static("./public"));
 
 app.listen(port, () => {
   logger.info(`App is running on port: ${port}`);

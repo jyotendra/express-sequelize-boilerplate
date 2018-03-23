@@ -2,7 +2,7 @@ import {Router} from "express";
 
 // import { createNewUser } from "../controllers/auth/sign-up.controller";
 import { signinValidator } from "../utils/validators/auth/signin.validator";
-import { signInUser } from "../controllers/auth/sign-in.controller";
+import { signInUser } from "../controllers/api/auth/sign-in.controller";
 
 const router = Router();
 

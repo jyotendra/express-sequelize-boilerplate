@@ -1,9 +1,10 @@
 import authRoute from "./auth.route";
 import * as express from "express";
 
-const allRoutes = [authRoute];
-const apiRoute = express.Router();
+const apiRoutes = [authRoute];
+const route = express.Router();
 
-apiRoute.use("/api", allRoutes);
 
-export default apiRoute;
+route.use("/api", apiRoutes);
+
+export default route;

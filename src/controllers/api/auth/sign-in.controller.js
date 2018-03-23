@@ -1,9 +1,9 @@
-import { signinUser as signIn } from "../../dao/user/sign-in-user.dao";
-import { saveToken } from "../../dao/access-token/save-token.dao";
+import { signinUser as signIn } from "../../../dao/user/sign-in-user.dao";
+import { saveToken } from "../../../dao/access-token/save-token.dao";
 import { validationResult } from "express-validator/check";
-import { generateToken } from "../../utils/jwt.util";
-import { logger } from "../../server";
-import { rConditioner } from "../../utils/conditioner.util";
+import { generateToken } from "../../../utils/jwt.util";
+import { logger } from "../../../server";
+import { rConditioner } from "../../../utils/conditioner.util";
 
 export async function signInUser(req, res) {
   const errors = validationResult(req);
