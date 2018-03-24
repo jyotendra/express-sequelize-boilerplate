@@ -4,7 +4,7 @@ const logger = new winston.Logger({
   level: "info",
   transports: [
     new winston.transports.File({
-      filename: "./logs/server.log",
+      filename: "../logs/server.log",
       timestamp: true
     })
   ]
