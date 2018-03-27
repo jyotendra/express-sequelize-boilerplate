@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var fs = require("fs");
 var mkdirp = require("mkdirp");
 var clean = require("gulp-rimraf");
+var babel = require("gulp-babel");
 
 gulp.task("clean-build", function() {
   mkdirp("/build", function(err) {
@@ -9,6 +10,21 @@ gulp.task("clean-build", function() {
   });
   gulp.src("build/*", { read: false }).pipe(clean());
 });
+
+
+gulp.task("clean-build-src", function() {
+  gulp.src("build/src/*", { read: false }).pipe(clean());
+});
+
+
+gulp.task("compile-babel", function() {
+  gulp.src(["src/**/*"]).pipe(babel()).pipe(gulp.dest("build/src"));
+});
+
+gulp.task("set-watch", function() {
+  gulp.watch('src/**/*', ['compile-babel']);
+});
+
 
 gulp.task("copy-folders", function() {
   // copy docs to build
@@ -18,4 +34,7 @@ gulp.task("copy-folders", function() {
   // create logs folder and file
   fs.mkdirSync("./build/logs");
   fs.closeSync(fs.openSync("./build/logs/server.log", "w"));
+
+  gulp.src(["./package.json"]).pipe(gulp.dest("build"));
+  gulp.src(["./sequelizerc"]).pipe(gulp.dest("build"));
 });
