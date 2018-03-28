@@ -37,5 +37,10 @@ gulp.task("copy-folders", function() {
 
   gulp.src(["./package.json"]).pipe(gulp.dest("build"));
   gulp.src(["./.sequelizerc"]).pipe(gulp.dest("build"));
-  gulp.src(["./.env"]).pipe(gulp.dest("build"));
+  if(process.env.NODE_ENV === "production") {
+    gulp.src(["./.env"]).pipe(gulp.dest("build"));
+  } else {
+    gulp.src(["./.env.dev"]).pipe(gulp.dest("build"));
+  }
+  
 });
