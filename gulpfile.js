@@ -36,5 +36,6 @@ gulp.task("copy-folders", function() {
   fs.closeSync(fs.openSync("./build/logs/server.log", "w"));
 
   gulp.src(["./package.json"]).pipe(gulp.dest("build"));
-  gulp.src(["./sequelizerc"]).pipe(gulp.dest("build"));
+  gulp.src(["./.sequelizerc"]).pipe(gulp.dest("build"));
+  gulp.src(["./.env"]).pipe(gulp.dest("build"));
 });

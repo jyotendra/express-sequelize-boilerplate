@@ -5,12 +5,21 @@ import { Sequelize } from "sequelize";
 const basename = path.basename(module.filename);
 const db = {};
 
-const config = require("../../../config/database.json");
+// const config = require("../../../config/database.json");
 
-const dbConfig = config.development;
+// const dbConfig = config.development;
+
+// export const sequelize = new Sequelize({
+//   ...dbConfig
+// });
 
 export const sequelize = new Sequelize({
-  ...dbConfig
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT
 });
 
 fs

@@ -3,8 +3,7 @@ import * as jwtSync from "jsonwebtoken";
 
 export const jwt = promisifyAll(jwtSync);
 
-const appConfig = require("../../config/appConfig.json");
-const cert = appConfig.appKey;
+const cert = process.env.APP_KEY;
 
 
 export function generateToken(model) {

@@ -1,4 +1,6 @@
 import "babel-polyfill";
+import config from "./utils/configImporter.util";
+
 import Express from "express";
 import * as bodyParser from "body-parser";
 // import db from "./db/models/index.model";
