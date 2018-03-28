@@ -3,7 +3,6 @@ import config from "./utils/configImporter.util";
 
 import Express from "express";
 import * as bodyParser from "body-parser";
-// import db from "./db/models/index.model";
 import routes from "./routes/index.route";
 import Logger from "./utils/logger.utils";
 
@@ -11,8 +10,6 @@ const port = 3000;
 
 const app = Express();
 export const logger = Logger;
-
-// (() => db.sync({ force: false }))();
 
 app.use(bodyParser.json());
 app.use("/", routes);
