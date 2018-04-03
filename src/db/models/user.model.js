@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
+    isActive: {
+      defaultValue: false,
+      type: DataTypes.BOOLEAN
+    },
     passwordHash: {
       allowNull: false,
       type: DataTypes.STRING
@@ -29,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   user.associate = function(models) {
-    user.hasOne(models.accessToken)
+    user.hasOne(models.accessToken);
+    user.hasOne(models.userVerification);
   };
   return user;
 };

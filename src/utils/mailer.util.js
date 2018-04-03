@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 import { logger } from "../server";
+import Promise from "bluebird";
 
 class NodeMailer {
   transporter;
@@ -30,11 +31,17 @@ class NodeMailer {
    *  @param {string} options.html: '<b>Hello world?</b>' // html body
    */
   sendMail(options) {
-    this.transporter.sendMail(options, (err, info) => {
-      if (err) {
-        logger.error("Error occurred while sending message", { err });
-      }
-    });
+    return new Promise((resolve, reject) => {
+      this.transporter.sendMail(options, (err, info) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(info);
+        }
+      });
+    }).catch(error =>
+      logger.error("Error occurred while sending message", { error })
+    );
   }
 
   /**
@@ -51,6 +58,8 @@ class NodeMailer {
     this.mailConfig = config;
   }
 }
+
+
 
 const mailer = new NodeMailer();
 export default mailer;

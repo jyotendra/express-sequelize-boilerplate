@@ -5,15 +5,7 @@ import { Sequelize } from "sequelize";
 const basename = path.basename(module.filename);
 const db = {};
 
-// const config = require("../../../config/database.json");
-
-// const dbConfig = config.development;
-
-// export const sequelize = new Sequelize({
-//   ...dbConfig
-// });
-
-export const sequelize = new Sequelize({
+const sequelize = new Sequelize({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,

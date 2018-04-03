@@ -1,10 +1,10 @@
 import "babel-polyfill";
 import config from "./utils/configImporter.util";
-
 import Express from "express";
 import * as bodyParser from "body-parser";
 import routes from "./routes/index.route";
 import Logger from "./utils/logger.utils";
+import allJobs from "./utils/crons.util";
 
 const port = 3000;
 
@@ -18,6 +18,8 @@ app.use(Express.static("./public"));
 app.listen(port, () => {
   logger.info(`App is running on port: ${port}`);
 });
+
+
 
 process.on("exit", () => {
   const date = new Date();

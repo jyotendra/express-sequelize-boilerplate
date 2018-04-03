@@ -13,12 +13,11 @@
     "set-watch": "./node_modules/.bin/gulp set-watch",
     "serve": "npm run start-nodemon",
     "copy-files": "./node_modules/.bin/gulp copy-folders",
-    "sqlz:migrate": "./node_modules/.bin/sequelize db:migrate",
+    "sqlz:migrate": "cross-env NODE_ENV=development ./node_modules/.bin/sequelize db:migrate",
     "sqlz:undo": "./node_modules/.bin/sequelize db:migrate:undo",
     "sqlz:migration:new": "./node_modules/.bin/sequelize migration:create",
     "sqlz:seed:new": "./node_modules/.bin/sequelize seed:generate",
-    "sqlz:seed:all": "./node_modules/.bin/sequelize db:seed:all",
-    "sqlz:model:new": "./node_modules/.bin/sequelize model:generate"
+    "sqlz:seed:all": "./node_modules/.bin/sequelize db:seed:all"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -33,6 +32,7 @@
     "inversify": "4.10.0",
     "jsonwebtoken": "^8.2.0",
     "lodash": "^4.17.5",
+    "moment": "^2.22.0",
     "node-schedule": "^1.3.0",
     "nodemailer": "^4.6.3",
     "objectmodel": "^3.3.0",

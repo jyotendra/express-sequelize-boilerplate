@@ -1,0 +1,29 @@
+{
+    "development": {
+      "username": "express-sequelize",
+      "password": 12345,
+      "database": "express-sequelize",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    },
+    "test": {
+      "username": "express-sequelize",
+      "password": 12345,
+      "database": "express-sequelize-test",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    },
+    "production": {
+      "username": "express-sequelize",
+      "password": 12345,
+      "database": "express-sequelize",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "port": 5432
+    }
+  }
+  
+  
+  
