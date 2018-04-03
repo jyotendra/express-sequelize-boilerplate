@@ -3,7 +3,7 @@ Boilerplate for express sequelize with local user auth usng jwt
 
 Will need to add a .env or .env.dev file depending on  your needs. A sample .env would be like:
 
-`
+```
 DB_USERNAME="express-sequelize"
 DB_PASSWORD="12345"
 DB_NAME="express-sequelize"
@@ -20,4 +20,4 @@ EMAIL_PORT="2525"
 EMAIL_USERNAME="fvdfvdfv"
 EMAIL_PASSWORD="tyhy565656"
 
-`
+```
