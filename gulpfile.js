@@ -4,29 +4,29 @@ var mkdirp = require("mkdirp");
 var clean = require("gulp-rimraf");
 var babel = require("gulp-babel");
 
-gulp.task("clean-build", function() {
-  mkdirp("/build", function(err) {
+gulp.task("clean-build", function () {
+  mkdirp("./build", function (err) {
     console.log("Folder already exists", err);
   });
-  gulp.src("build/*", { read: false }).pipe(clean());
+  return gulp.src("build/*", { read: false }).pipe(clean());
 });
 
 
-gulp.task("clean-build-src", function() {
-  gulp.src("build/src/*", { read: false }).pipe(clean());
+gulp.task("clean-build-src", function () {
+  return gulp.src("build/src/*", { read: false }).pipe(clean());
 });
 
 
-gulp.task("compile-babel", function() {
-  gulp.src(["src/**/*"]).pipe(babel()).pipe(gulp.dest("build/src"));
+gulp.task("compile-babel", function () {
+  return gulp.src(["src/**/*"]).pipe(babel()).pipe(gulp.dest("build/src"));
 });
 
-gulp.task("set-watch", function() {
-  gulp.watch('src/**/*', ['compile-babel']);
+gulp.task("set-watch", function () {
+  gulp.watch('src/**/*', gulp.series('compile-babel'));
 });
 
 
-gulp.task("copy-folders", function() {
+gulp.task("copy-folders", function (done) {
   // copy docs to build
   gulp.src(["public/**/*"]).pipe(gulp.dest("build/public"));
   // copy config
@@ -37,10 +37,10 @@ gulp.task("copy-folders", function() {
 
   gulp.src(["./package.json"]).pipe(gulp.dest("build"));
   gulp.src(["./.sequelizerc"]).pipe(gulp.dest("build"));
-  if(process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production") {
     gulp.src(["./.env"]).pipe(gulp.dest("build"));
   } else {
     gulp.src(["./.env.dev"]).pipe(gulp.dest("build"));
   }
-  
+  done();
 });
