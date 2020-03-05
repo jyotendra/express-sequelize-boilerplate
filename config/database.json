@@ -1,11 +1,11 @@
 {
     "development": {
-      "username": "express-sequelize",
-      "password": 12345,
+      "username": "root`",
+      "password": "",
       "database": "express-sequelize",
       "host": "127.0.0.1",
-      "dialect": "postgres",
-      "port": 5432
+      "dialect": "mysql",
+      "port": 3306
     },
     "test": {
       "username": "express-sequelize",

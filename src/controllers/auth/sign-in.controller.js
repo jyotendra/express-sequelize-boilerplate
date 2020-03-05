@@ -1,6 +1,6 @@
 import { signinUser as signIn } from "../../dao/user/sign-in-user.dao";
 import { saveToken } from "../../dao/access-token/save-token.dao";
-import { validationResult } from "express-validator/check";
+import { validationResult } from "express-validator";
 import { generateToken } from "../../utils/jwt.util";
 import { logger } from "../../server";
 import { rConditioner } from "../../utils/conditioner.util";
@@ -19,7 +19,7 @@ export async function signInUser(req, res) {
   }
 
   const user = await signIn(req.body).catch(err => {
-    logger.log(err.message);
+    logger.info(err.message);
   });
 
   if (!user) {

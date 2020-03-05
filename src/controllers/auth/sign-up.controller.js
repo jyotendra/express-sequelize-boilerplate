@@ -1,4 +1,4 @@
-import { validationResult } from "express-validator/check";
+import { validationResult } from "express-validator";
 import { createUser, activateUser } from "../../dao/user/signup-user.dao";
 import { logger } from "../../server";
 import { rConditioner } from "../../utils/conditioner.util";

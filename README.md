@@ -21,3 +21,8 @@ EMAIL_USERNAME="fvdfvdfv"
 EMAIL_PASSWORD="tyhy565656"
 
 ```
+
+
+## Running Application
+
+In one terminal run the build command: ```npm run build``` and in another terminal run serve command: ```npm run serve```. In Ubuntu system nodemon might give error of "watch file limit reached". To increase this limit use this command: ```sudo sysctl -w fs.inotify.max_user_watches=100000 ```.

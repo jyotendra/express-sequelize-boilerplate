@@ -3,6 +3,12 @@ var fs = require("fs");
 var mkdirp = require("mkdirp");
 var clean = require("gulp-rimraf");
 var babel = require("gulp-babel");
+var sourcemaps = require('gulp-sourcemaps');
+var path = require("path")
+
+
+const srcPath = path.join(__dirname, "src")
+console.log(srcPath);
 
 gulp.task("clean-build", function () {
   mkdirp("./build", function (err) {
@@ -18,7 +24,18 @@ gulp.task("clean-build-src", function () {
 
 
 gulp.task("compile-babel", function () {
-  return gulp.src(["src/**/*"]).pipe(babel()).pipe(gulp.dest("build/src"));
+  return gulp.src(["src/**/*.js"],  { base: 'src' })
+  .pipe(sourcemaps.init())
+  .pipe(babel({
+    presets: ['@babel/preset-env']
+  }))
+  .pipe(sourcemaps.mapSources(function(sourcePath, file) {
+    // source paths are prefixed with '../src/'
+    const srcPath = path.join(__dirname, "src", sourcePath)
+    return srcPath;
+  }))
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest("build/src"));
 });
 
 gulp.task("set-watch", function () {

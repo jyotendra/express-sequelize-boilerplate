@@ -6,6 +6,10 @@ import routes from "./routes/index.route";
 import Logger from "./utils/logger.utils";
 import allJobs from "./utils/crons.util";
 
+
+require('source-map-support').install();
+
+
 const port = 3000;
 
 const app = Express();

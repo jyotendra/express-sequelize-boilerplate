@@ -1,4 +1,4 @@
-import { check } from "express-validator/check";
+import { check } from "express-validator";
 import * as _ from "lodash";
 
 const signinValidatorsObj = {

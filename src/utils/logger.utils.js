@@ -1,7 +1,8 @@
 import winston from "winston";
 
-const logger = new winston.Logger({
+const logger =  winston.createLogger({
   level: "info",
+  format: winston.format.json(),
   transports: [
     new winston.transports.File({
       filename: "./logs/server.log",
@@ -12,9 +13,11 @@ const logger = new winston.Logger({
 
 if (process.env.NODE_ENV !== "production") {
   logger.add(
-    winston.transports.Console
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    })
   );
-  logger.cli();
+  // logger.cli();
 }
 
 export default logger;
