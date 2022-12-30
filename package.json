@@ -75,7 +75,7 @@
     "gulp-file": "^0.4.0",
     "gulp-rimraf": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "nodemon": "^1.19.2",
     "sequelize-cli": "^5.5.1"
   },
